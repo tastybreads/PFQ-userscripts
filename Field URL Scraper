@@ -7,7 +7,8 @@
 // @match        https://pokefarm.com/fields
 // @grant        GM_setClipboard
 // ==/UserScript==
-//This script will get urls for every pokemon inside a field
+
+//this will scrape all urls from the field you currently have open. use excel sheet to make a big post
 
 (function() {
     'use strict';
@@ -16,9 +17,11 @@
     let scrapeButton = document.createElement('button');
     scrapeButton.innerText = 'Scrape Pokémon Summary URLs';
     scrapeButton.style.position = 'fixed';
-    scrapeButton.style.top = '10px';
-    scrapeButton.style.right = '10px';
+    scrapeButton.style.bottom = '10px';
+    scrapeButton.style.left = '50%';
+    scrapeButton.style.transform = 'translateX(-50%)'; // Center the button
     scrapeButton.style.zIndex = '9999';
+    scrapeButton.style.fontSize = '200%'; // 200% bigger font size
     document.body.appendChild(scrapeButton);
 
     scrapeButton.addEventListener('click', function() {
