@@ -1,0 +1,42 @@
+// ==UserScript==
+// @name         Pokefarm Field URL Scraper
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  Scrape Pokémon summary URLs from fields
+// @author       TotoGPT
+// @match        https://pokefarm.com/fields
+// @grant        GM_setClipboard
+// ==/UserScript==
+//This script will get urls for every pokemon inside a field
+
+(function() {
+    'use strict';
+
+    // Create a button to initiate the scraping
+    let scrapeButton = document.createElement('button');
+    scrapeButton.innerText = 'Scrape Pokémon Summary URLs';
+    scrapeButton.style.position = 'fixed';
+    scrapeButton.style.top = '10px';
+    scrapeButton.style.right = '10px';
+    scrapeButton.style.zIndex = '9999';
+    document.body.appendChild(scrapeButton);
+
+    scrapeButton.addEventListener('click', function() {
+        // Find all Pokémon elements in the field
+        let pokemonElements = document.querySelectorAll('.fieldmon');
+
+        // Extract URLs based on data-id attribute
+        let urls = [];
+        pokemonElements.forEach(element => {
+            let dataId = element.getAttribute('data-id');
+            if (dataId) {
+                urls.push(`https://pokefarm.com/summary/${dataId}`);
+            }
+        });
+
+        // Copy URLs to clipboard or display them
+        GM_setClipboard(urls.join('\n')); // This will copy the URLs to your clipboard
+        alert('Pokémon summary URLs copied to clipboard!');
+    });
+
+})();
